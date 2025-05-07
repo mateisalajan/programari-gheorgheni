@@ -2,7 +2,7 @@ name: Weekly Football Field Booking
 
 on:
   schedule:
-    - cron: '50 16 * * 2'  # Every Tuesday at 19:50 CET (which is 17:50 UTC)
+    - cron: '50 16 * * 2'  # Every Tuesday at 19:50 EEST (which is 16:50 UTC)
   workflow_dispatch:  # Optional: allows manual triggering
 
 jobs:
