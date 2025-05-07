@@ -3,11 +3,12 @@ import os
 
 USERNAME = os.environ["BOOKING_USERNAME"]
 PASSWORD = os.environ["BOOKING_PASSWORD"]
+URL = os.environ["BOOKING_URL"]
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
-    page.goto("https://www.calendis.ro/cluj-napoca/baza-sportiva-gheorgheni/fotbal/s")
+    page.goto(URL)
 
     page.fill("#forEmail", USERNAME)
     page.fill("#forPassword", PASSWORD)
@@ -22,8 +23,10 @@ with sync_playwright() as p:
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
         if page.locator("strong", has_text="20:00").count() > 0:
             found = True
+            print("Slot found!\n")
         else:
             page.reload()
+            print("Still looking for slot\n")
 
     page.locator("strong", has_text="20:00").click()
 
