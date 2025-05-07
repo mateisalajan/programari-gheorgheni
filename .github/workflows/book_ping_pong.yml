@@ -1,0 +1,31 @@
+name: Weekly Ping Pong Field Booking
+
+on:
+  schedule:
+    - cron: '50 16 * * 1'  # Every Monday at 19:50 EEST (which is 16:50 UTC)
+  workflow_dispatch:  # Optional: allows manual triggering
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Playwright and dependencies
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Run booking script
+        env:
+          BOOKING_USERNAME: ${{ secrets.BOOKING_USERNAME }}
+          BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD }}
+          BOOKING_URL: ${{ vars.BOOKING_URL_PING_PONG }}
+        run: python -u football_script.py
