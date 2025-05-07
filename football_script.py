@@ -23,10 +23,10 @@ with sync_playwright() as p:
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
         if page.locator("strong", has_text="20:00").count() > 0:
             found = True
-            print("Slot found!\n")
+            print("Slot found!\n", flush=True)
         else:
             page.reload()
-            print("Still looking for slot\n")
+            print("Still looking for slot\n", flush=True)
 
     page.locator("strong", has_text="20:00").click()
 
