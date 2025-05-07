@@ -1,0 +1,30 @@
+name: Weekly Football Field Booking
+
+on:
+  schedule:
+    - cron: '50 17 * * 2'  # Every Tuesday at 19:50 CET (which is 17:50 UTC)
+  workflow_dispatch:  # Optional: allows manual triggering
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Playwright and dependencies
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Run booking script
+        env:
+          BOOKING_USERNAME: ${{ secrets.BOOKING_USERNAME }}
+          BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD }}
+        run: python book_field.py
