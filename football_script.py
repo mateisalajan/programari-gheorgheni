@@ -4,6 +4,7 @@ import os
 USERNAME = os.environ["BOOKING_USERNAME"]
 PASSWORD = os.environ["BOOKING_PASSWORD"]
 URL = os.environ["BOOKING_URL"]
+DAY_OF_WEEK = os.environ["BOOKING_DAY_OF_WEEK"]
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
@@ -17,10 +18,16 @@ with sync_playwright() as p:
     found = False
     while not found:
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
+        page.wait_for_timeout(1000)
         page.click(".calendar-arrow.right-arrow")
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
+        page.wait_for_timeout(1000)
         page.click(".calendar-arrow.right-arrow")
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
+        page.wait_for_timeout(1000)
+        page.locator(".day-week").filter(has_text=DAY_OF_WEEK).click()
+        page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
+        page.wait_for_timeout(1000)
         if page.locator("strong", has_text="20:00").count() > 0:
             found = True
             print("Slot found!\n", flush=True)
