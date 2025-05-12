@@ -7,7 +7,7 @@ URL = os.environ["BOOKING_URL"]
 DAY_OF_WEEK = os.environ["BOOKING_DAY_OF_WEEK"]
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
+    browser = p.chromium.launch(headless=True)
     page = browser.new_page()
     page.goto(URL)
 
