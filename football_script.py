@@ -15,8 +15,9 @@ with sync_playwright() as p:
     page.fill("#forPassword", PASSWORD)
     page.click("text=CONECTEAZĂ-TE")
 
-    found = False
-    while not found:
+    found20 = False
+    found21 = False
+    while not found20 and not found21:
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
         page.wait_for_timeout(500)
         page.click(".calendar-arrow.right-arrow")
@@ -29,19 +30,25 @@ with sync_playwright() as p:
         page.locator(".slots-message").filter(has_text="Se caută spații disponibile... ").wait_for(state="detached")
         page.wait_for_timeout(500)
         if page.locator("strong", has_text="20:00").count() > 0:
-            found = True
+            found20 = True
             print("Slot found!\n", flush=True)
+        elif page.locator("strong", has_text="21:00").count() > 0:
+            found21 = True
         else:
             page.reload()
             print("Still looking for slot\n", flush=True)
 
-    page.locator("strong", has_text="20:00").click()
+    if found20:
+        page.locator("strong", has_text="20:00").click()
+    else:
+        page.locator("strong", has_text="21:00").click()
 
     page.click("#submit-appointment")
 
     page.wait_for_url("https://www.calendis.ro/finalizeaza-programarea")
 
     page.check("#regulations-checkbox")
+
     page.click("#confirm-appointment")
 
     browser.close()
