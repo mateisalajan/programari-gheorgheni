@@ -25,8 +25,8 @@ jobs:
 
       - name: Run booking script
         env:
-          BOOKING_USERNAME: ${{ secrets.BOOKING_USERNAME_2 }}
-          BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD_2 }}
+          BOOKING_USERNAME: ${{ secrets.BOOKING_USERNAME }}
+          BOOKING_PASSWORD: ${{ secrets.BOOKING_PASSWORD }}
           BOOKING_URL: ${{ vars.BOOKING_URL_FOOTBALL }}
           BOOKING_DAY_OF_WEEK: ${{ vars.BOOKING_DAY_FOOTBALL }}
         run: python -u football_script.py
