@@ -2,7 +2,7 @@ name: Weekly Tennis Field Booking Bwnia 2
 
 on:
   schedule:
-    - cron: '50 16 * * 2'  # Every Thursday at 19:50 EEST (which is 16:50 UTC)
+    - cron: '50 16 * * 3'  # Every Thursday at 19:50 EEST (which is 16:50 UTC)
   workflow_dispatch:  # Optional: allows manual triggering
 
 jobs:
