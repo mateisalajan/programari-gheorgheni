@@ -2,13 +2,13 @@ name: Weekly Football Field Booking
 
 on:
   schedule:
-    - cron: '50 16 * * 4'  # Every Tuesday at 19:50 EEST (which is 16:50 UTC)
+    - cron: '40 17 * * 4'  # Every Tuesday at 19:50 EEST (which is 16:50 UTC)
   workflow_dispatch:  # Optional: allows manual triggering
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 180
 
     steps:
       - name: Checkout repo
